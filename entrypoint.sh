@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -x
 
 #############
 # Validations
@@ -114,7 +115,7 @@ $ALL_FILES_DIFF"
   # Add fmt failure comment to PR.
   PR_PAYLOAD=$(echo '{}' | jq --arg body "$PR_COMMENT" '.body = $body')
   echo -e "\033[34;1mINFO:\033[0m Adding fmt failure comment to PR."
-  curl -sS -X POST -H "$AUTH_HEADER" -H "$ACCEPT_HEADER" -H "$CONTENT_HEADER" -d "$PR_PAYLOAD" -L "$PR_COMMENTS_URL" > /dev/null
+  curl -v -X POST -H "$AUTH_HEADER" -H "$ACCEPT_HEADER" -H "$CONTENT_HEADER" -d "$PR_PAYLOAD" -L "$PR_COMMENTS_URL"
 
   exit 0
 fi
